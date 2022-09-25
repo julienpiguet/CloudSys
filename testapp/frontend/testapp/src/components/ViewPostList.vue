@@ -1,9 +1,6 @@
 <template>
     <v-card class="mb-4" elevation="0">
-        <v-card-actions>
-            <v-btn @click="refreshElements()" >Refresh</v-btn>
-        </v-card-actions>
-        <v-row v-for="item in itemList" :key="item.id">
+        <v-row v-for="item in itemList.reverse()" :key="item.id">
             <v-col>
                 <ViewPost :id="item.id" :title="item.title" :img="item.img"/>
             </v-col>
