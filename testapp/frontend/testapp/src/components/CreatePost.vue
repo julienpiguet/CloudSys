@@ -42,8 +42,10 @@
 </template>
 
 <script>
+import { API_LOCATION } from "../config"
 
 export default {
+    
     name: 'ViewPost',
 
     props: {
@@ -69,7 +71,7 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ title: this.title, img: this.previewImage })
             };
-            fetch("http://localhost:3000/element", requestOptions)
+            fetch(API_LOCATION+"/element", requestOptions)
             this.dialog = false
             this.refresh()
         },

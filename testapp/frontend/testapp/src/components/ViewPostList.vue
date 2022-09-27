@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { API_LOCATION } from "../config"
 import ViewPost from './ViewPost.vue'
 
 export default {
@@ -29,7 +30,7 @@ export default {
             const requestOptions = {
                 method: "GET",
             };
-            fetch("http://localhost:3000/element/all", requestOptions)
+            fetch(API_LOCATION+"/element/all", requestOptions)
                 .then(response => response.json())
                 .then(data => (this.itemList = data.data));
             console.log(this.itemList)
