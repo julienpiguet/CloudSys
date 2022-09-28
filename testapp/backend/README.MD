@@ -70,7 +70,7 @@ vi default
 Edit server name
 ```Bash
 ...
-server_name CHANGE_TO_YOUR_SERVER_IP_ADDR;
+server_name CHANGE_TO_YOUR_SERVER_IP_ADDR_OR_HOSTNAME;
 ...
 ```
 Save and close file (-> :wq )
