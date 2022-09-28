@@ -80,8 +80,9 @@ Restart nginx
 sudo systemctl restart nginx
 sudo systemctl status nginx
 ```
+The app is now available at http://IP_ADDR/ (port 80)
 
-
+(try http://IP_ADDR/element/all )
 
 ## Add new storage
 
