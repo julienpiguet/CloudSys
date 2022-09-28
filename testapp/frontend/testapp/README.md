@@ -48,15 +48,35 @@ cd CloudSys/testapp/frontend/testapp
 sudo npm install
 ```
 
-### Install reverse proxy
+### Config and build
+
+```Bash
+cd /var/www/CloudSys/testapp/frontend/testapp
+vi src/config.js
+```
+Set the backend server
+```Javascript
+module.exports = {
+    API_LOCATION: "CHANGE_TO_YOUR_BACKEND_IP_ADDR_OR_HOSTNAME"
+}
+```
+
+Build
+```Bash
+npm run build
+```
+
+
+### Install web server
 
 ```Bash
 sudo apt install nginx
 cd /etc/nginx/sites-available/
-mv default default.bak
-cp /var/www/CloudSys/testapp/backend/nginx-default.conf default
+sudo mv default default.bak
+cp /var/www/CloudSys/testapp/frontend/testapp/nginx-default.conf default
 vi default
 ```
+
 Edit server name
 ```Bash
 ...
