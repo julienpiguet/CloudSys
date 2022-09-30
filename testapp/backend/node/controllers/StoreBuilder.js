@@ -1,11 +1,13 @@
 const { LocalStore } = require('./LocalStore.js');
+const { GoogleStore } = require('./GoogleStore.js');
 
 const stores = new Map();
 
 /**
  * Map of stores
  */
-stores.set("default", (params) => new LocalStore((params == null ? "data.json" : params)))
+stores.set("default", (params) => new LocalStore((params == null ? "../data.json" : params)))
+stores.set("google", (params) => new GoogleStore('cloudsys_bucket'))
 
 /**
  * Store builder
