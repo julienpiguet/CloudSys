@@ -15,7 +15,7 @@ class ExoStore(Store):
         file_name = '/tmp/'+ item.id+'.json'
 
         storage_client = exoscale.Exoscale()
-        bucket = storage_client.storage.get_bucket(self.bucket_name, zone="de-fra-1")
+        bucket = storage_client.storage.get_bucket(self.bucket_name)
         
         f = open(file_name, "w")
         f.write(json.dumps(item.__dict__))
@@ -24,7 +24,7 @@ class ExoStore(Store):
     
     def getAllItems(self):
         storage_client = exoscale.Exoscale()
-        bucket = storage_client.storage.get_bucket(self.bucket_name, zone="de-fra-1")
+        bucket = storage_client.storage.get_bucket(self.bucket_name)
         list = json.loads("[]")
 
         for f in bucket.list_files():
