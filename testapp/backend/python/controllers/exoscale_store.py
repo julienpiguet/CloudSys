@@ -1,3 +1,4 @@
+from fileinput import filename
 from unittest import result
 from .store import Store
 from .item import Item
@@ -11,22 +12,22 @@ class ExoStore(Store):
         self.bucket_name = bucket_name
     
     def postItem(self, item):
-        blob_name = item.id+'.json'
+        file_name = '/tmp/'+ item.id+'.json'
 
         storage_client = exoscale.Exoscale()
         bucket = storage_client.get_bucket(self.bucket_name)
-        blob = bucket.blob(blob_name)
-        with blob.open("w") as f:
-            f.write(json.dumps(item.__dict__))
-
-        bucket.put(blob, blob_name)    
+        
+        f = open(file_name, "wr+")
+        f.write(json.dumps(item.__dict__))
+        f.close()
+        bucket.put_file(file_name)    
     
     def getAllItems(self):
         storage_client = exoscale.Exoscale()
         bucket = storage_client.get_bucket(self.bucket_name)
         list = json.loads("[]")
-        for blob in bucket.list_files():
-            with blob.open("r") as f:
-                data = json.load(f)
-                list.append(data)
+
+        for f in bucket.list_files():
+            data = json.load(f.content.read())
+            list.append(data)
         return list
