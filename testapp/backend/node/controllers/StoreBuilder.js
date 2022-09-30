@@ -1,5 +1,4 @@
 const { LocalStore } = require('./LocalStore.js');
-const { GoogleStore } = require('./GoogleStore.js');
 
 const stores = new Map();
 
