@@ -78,6 +78,11 @@ The app is now available at http://IP_ADDR/ (port 80)
 
 ## Add new storage
 
+### add Exoscale API KEY 
+please create an api key in IAM in Exoscale  
+
+$ export EXOSCALE_API_KEY="EXOxxxxxxxxxxxxxxxxx" EXOSCALE_API_SECRET="xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
 ### Create an Object
 Create a new file and an object that extends Store
 ```Javascript
