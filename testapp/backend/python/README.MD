@@ -31,10 +31,11 @@ Deploy backend on an Ubuntu server
 ```Bash
 sudo apt update
 sudo apt upgrade
-sudo apt install python3 pip3
+sudo apt install python3 pip
 python3 -m pip install fastapi
 python3 -m pip install uvicorn[standard]
 python3 -m pip install uuid
+python3 -m pip install google-cloud-storage
 ```
 restart shell if necessary
 

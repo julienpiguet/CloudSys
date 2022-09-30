@@ -7,7 +7,7 @@ class GoogleStore(Store):
     bucket_name: str
 
     def __init__(self, bucket_name):
-        self.name = bucket_name
+        self.bucket_name = bucket_name
     
     def postItem(self, item):
         blob_name = item.id+'.json'
