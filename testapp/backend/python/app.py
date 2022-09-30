@@ -9,6 +9,7 @@ from controllers.item import Item
 from controllers.itemin import ItemIn
 from controllers.store_builder import get_store
 import uuid
+import configparser
 
 app = FastAPI()
 
@@ -22,7 +23,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-store = get_store()
+config = configparser.ConfigParser()
+config.read('config.ini')
+storetype = config['DEFAULT']['StoreType']
+
+
+store = get_store(storetype)
 
 @app.get("/element/all")
 async def get_all_element():
