@@ -24,7 +24,7 @@ class ExoStore(Store):
     
     def getAllItems(self):
         storage_client = exoscale.Exoscale()
-        bucket = storage_client.get_bucket(self.bucket_name)
+        bucket = storage_client.storage.get_bucket(self.bucket_name)
         list = json.loads("[]")
 
         for f in bucket.list_files():
