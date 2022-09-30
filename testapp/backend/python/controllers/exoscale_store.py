@@ -13,6 +13,7 @@ class ExoStore(Store):
     
     def postItem(self, item):
         file_name = '/tmp/'+ item.id+'.json'
+        bucket_file = item.id + 'json'
 
         storage_client = exoscale.Exoscale()
         bucket = storage_client.storage.get_bucket(self.bucket_name)
@@ -20,7 +21,7 @@ class ExoStore(Store):
         f = open(file_name, "w")
         f.write(json.dumps(item.__dict__))
         f.close()
-        bucket.put_file(file_name, file_name)    
+        bucket.put_file(file_name, bucket_file)    
     
     def getAllItems(self):
         storage_client = exoscale.Exoscale()
