@@ -15,6 +15,7 @@ class ExoStore(Store):
         file_name = '/tmp/'+ item.id+'.json'
 
         storage_client = exoscale.Exoscale()
+        storage_client.storage.create_bucket(self.bucket_name, zone="ch-gva-2")
         bucket = storage_client.storage.get_bucket(self.bucket_name)
         
         f = open(file_name, "w")
