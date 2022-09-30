@@ -17,7 +17,7 @@ class ExoStore(Store):
         storage_client = exoscale.Exoscale()
         bucket = storage_client.storage.get_bucket(self.bucket_name)
         
-        f = open(file_name, "wr+")
+        f = open(file_name, "w")
         f.write(json.dumps(item.__dict__))
         f.close()
         bucket.put_file(file_name)    
