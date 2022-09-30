@@ -1,12 +1,17 @@
 from .store import Store
 from .item import Item
 import json
+import os
 
 class LocalStore(Store):
     file: str
 
-    def __init__(self, file):
+    def __init__(self, file='../data.json'):
         self.file = file
+        if (os.path.exists(file) == False):
+            f = open(file, "w+")
+            f.write('{"data":[]}')
+            f.close()
     
     def postItem(self, item):
         with open(self.file,'r+') as file:

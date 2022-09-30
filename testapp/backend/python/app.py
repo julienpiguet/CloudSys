@@ -28,7 +28,7 @@ config.read('config.ini')
 storetype = config['DEFAULT']['StoreType']
 
 
-store = get_store(storetype)
+store = get_store(storetype, config[storetype]['arg'] if config.has_option(storetype, 'arg') else None)
 
 @app.get("/element/all")
 async def get_all_element():
