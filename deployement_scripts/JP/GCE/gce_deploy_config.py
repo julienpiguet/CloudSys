@@ -12,6 +12,39 @@ compute = googleapiclient.discovery.build('compute', 'v1')
 project="sanguine-medley-363719"
 zone="europe-west6-a"
 location = 'EUROPE-WEST6'
+bucket_name = "cloudsys-bucket-5"
+frontend_name = "frontend-5"
+backend_name = "backend-5"
+
+def cmd_frontend(api):
+    return '''#!/usr/bin/env bash
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y install git
+cd /var
+sudo mkdir www
+sudo chmod 777 www/
+cd www/
+git clone https://github.com/julienpiguet/CloudSys.git
+cd CloudSys/testapp/frontend/testapp
+chmod +x deploy.sh 
+sudo ./deploy.sh {api}
+'''.format(api=api)
+
+def cmd_backend(cloud,bucket):
+    return '''#!/usr/bin/env bash
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y install git
+cd /var
+sudo mkdir www
+sudo chmod 777 www/
+cd www/
+git clone https://github.com/julienpiguet/CloudSys.git
+cd CloudSys/testapp/backend/
+chmod +x deploy_python.sh 
+sudo ./deploy_python.sh {cloud} {bucket}
+'''.format(cloud=cloud,bucket=bucket )
 
 
 def list_instances(project_id, zone):
@@ -37,21 +70,25 @@ def wait_for_operation(compute, project, zone, operation):
         time.sleep(1)
 
 def create_instance(compute, project, zone, name, scriptname):
-    # Get the latest Debian Jessie image.
+    # Get the latest Ubuntu image.
     image_response = compute.images().getFromFamily(
         project='ubuntu-os-cloud', family='ubuntu-2204-lts').execute()
     source_disk_image = image_response['selfLink']
 
     # Configure the machine
     machine_type = "zones/%s/machineTypes/e2-micro" % zone
-    startup_script = open(
-        os.path.join(
-            os.path.dirname(__file__), scriptname), 'r').read()
+    startup_script = scriptname
+    #startup_script = open(
+    #    os.path.join(
+    #        os.path.dirname(__file__), scriptname), 'r').read()
 
 
     config = {
         'name': name,
         'machineType': machine_type,
+        "tags": {
+            "items": ["http-server"],
+        },
 
         # Specify the boot disk and the image to use as a source.
         'disks': [
@@ -106,12 +143,14 @@ def create_bucket(bucket_name, project,location):
     print(f"Bucket {bucket.name} created.")
 
 
-operation = create_instance(compute, project, zone, "backend-1" ,"../../deploy_app/deploy_backend.sh")
+print("Create instance {name}".format(name=backend_name))
+operation = create_instance(compute, project, zone, backend_name , cmd_backend("google", bucket_name))
 wait_for_operation(compute, project, zone, operation['name'])
 
-operation = create_instance(compute, project, zone, "frontend-1" ,"../../deploy_app/deploy_frontend.sh")
+print("Create instance {name}".format(name=frontend_name))
+operation = create_instance(compute, project, zone, frontend_name ,cmd_frontend("localhost"))
 wait_for_operation(compute, project, zone, operation['name'])
 
 list_instances(project, zone)
     
-create_bucket("cloudsys_bucket", project,location)
+create_bucket(bucket_name, project,location)

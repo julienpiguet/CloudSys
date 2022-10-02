@@ -8,6 +8,7 @@ sudo apt -y install nginx
 sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 sudo cp /var/www/CloudSys/testapp/backend/nginx-default.conf /etc/nginx/sites-available/default
 sudo systemctl restart nginx
+sudo systemctl enable nginx
 
 cd ./python
 
@@ -30,3 +31,4 @@ sudo cp pythonapp.service /etc/systemd/system/
 
 sudo systemctl daemon-reload
 sudo systemctl start pythonapp
+sudo systemctl enable pythonapp
