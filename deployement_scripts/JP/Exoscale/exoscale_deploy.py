@@ -5,7 +5,7 @@ zname="ch-gva-2"
 zone = exo.compute.get_zone(zname)
 type = exo.compute.get_instance_type("tiny")
 security_group = exo.compute.get_security_group(name='cloudsys')
-bucket_name = 'cloudsys_bucket_2'
+bucket_name = 'cloudsys-bucket-2'
 
 def cmd_frontend(api):
     return '''#cloud-config
@@ -84,6 +84,7 @@ print('Backend avalable at {ip}'.format(ip=backend.ipv4_address))
 
 frontend = create_instance(exo, 'frontend-2', zone, type, security_group_web, cmd_frontend(backend.ipv4_address))
 print('Frontend avalable at {ip}'.format(ip=frontend.ipv4_address))
+
 
 bucket = exo.storage.create_bucket(name=bucket_name, zone=zname)
 print('Bucket {name} as been created'.format(name=bucket.name)) 
