@@ -3,6 +3,7 @@ from .local_store import LocalStore
 from .google_store import GoogleStore
 from .exoscale_store import ExoStore
 from .aws_store import AWSStore
+from .azure_store import AzureStore
 
 def get_store(name='local', arg = None):
     if name == 'google':
