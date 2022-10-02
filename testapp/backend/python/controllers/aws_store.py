@@ -14,14 +14,14 @@ class AWSStore(Store):
         self.bucket_name = bucket_name
 
     def postItem(self, item):
-        storage_client = self.s3.Client()
+        storage_client = self.s3
         bucket = storage_client.bucket(self.bucket_name)
         blob = bucket.blob(item.name)
         blob.upload_from_string(json.dumps(item.__dict__))
         return item
 
     def getAllItems(self):
-        storage_client = self.s3.Client()
+        storage_client = self.s3
         bucket = storage_client.bucket(self.bucket_name)
         blobs = bucket.list_blobs()
         list = {"data":[]}
