@@ -11,6 +11,8 @@ def get_store(name='local', arg = None):
         return ExoStore(arg) if arg != None else ExoStore()  
     elif name == 'aws':
         return AWSStore(arg) if arg != None else AWSStore()
+    elif name == 'azure':
+        return AzureStore(arg) if arg != None else AzureStore()    
     else:
         return LocalStore(arg) if arg != None else LocalStore()
     
