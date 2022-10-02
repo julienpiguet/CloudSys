@@ -4,7 +4,7 @@ from .store import Store
 import boto3
 
 class AWSStore(Store):
-    s3 = boto3.resource(
+    self.s3 = boto3.resource(
         service_name='s3',
         region_name='us-east-1',
         aws_access_key_id='XXXXXXX',
