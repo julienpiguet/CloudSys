@@ -4,9 +4,10 @@ sudo apt update
 sudo apt -y install python3 pip python3-venv
 sudo apt -y install crudini
 
-sudo apt install nginx
+sudo apt -y install nginx
 sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
-sudo cp /var/www/CloudSys/testapp/backend/nginx-default.conf default
+sudo cp /var/www/CloudSys/testapp/backend/nginx-default.conf /etc/nginx/sites-available/default
+sudo systemctl restart nginx
 
 cd ./python
 
