@@ -21,9 +21,9 @@ class GoogleStore(Store):
     def getAllItems(self):
         storage_client = storage.Client()
         bucket = storage_client.bucket(self.bucket_name)
-        list = json.loads("[]")
+        list = json.loads('{ "data": []}')
         for blob in bucket.list_blobs():
             with blob.open("r") as f:
                 data = json.load(f)
-                list.append(data)
+                list['data'].append(data)
         return list

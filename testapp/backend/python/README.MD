@@ -57,15 +57,7 @@ sudo apt install nginx
 cd /etc/nginx/sites-available/
 mv default default.bak
 cp /var/www/CloudSys/testapp/backend/nginx-default.conf default
-vi default
 ```
-Edit server name
-```Bash
-...
-server_name CHANGE_TO_YOUR_SERVER_IP_ADDR_OR_HOSTNAME;
-...
-```
-Save and close file (-> :wq )
 
 Restart nginx
 ```Bash
