@@ -31,11 +31,12 @@ Deploy backend on an Ubuntu server
 ```Bash
 sudo apt update
 sudo apt upgrade
-sudo apt install python3 pip
+sudo apt install python3 pip python3-venv
 python3 -m pip install fastapi
 python3 -m pip install uvicorn[standard]
 python3 -m pip install uuid
 python3 -m pip install google-cloud-storage
+python3 -m pip install exoscale
 ```
 restart shell if necessary
 
@@ -48,8 +49,29 @@ cd CloudSys/testapp/backend/python
 ```
 ### Setup as a service
 
-todo
+```Bash
+sudo apt -y install python3 pip python3-venv
 
+crudini --set config.ini DEFAULT StoreType NAME
+crudini --set config.ini StoreType arg BUCKET_NAME
+
+python3 -m venv venv
+source venv/bin/activate
+
+pip install fastapi[all]
+pip install uvicorn[standard]
+pip install uuid
+pip install google-cloud-storage
+pip install exoscale
+pip install gunicorn
+
+deactivate
+
+sudo cp pythonapp.service /etc/systemd/system/
+
+sudo systemctl daemon-reload
+sudo systemctl start pythonapp
+```
 ### Install reverse proxy
 
 ```Bash
@@ -57,15 +79,7 @@ sudo apt install nginx
 cd /etc/nginx/sites-available/
 mv default default.bak
 cp /var/www/CloudSys/testapp/backend/nginx-default.conf default
-vi default
 ```
-Edit server name
-```Bash
-...
-server_name CHANGE_TO_YOUR_SERVER_IP_ADDR_OR_HOSTNAME;
-...
-```
-Save and close file (-> :wq )
 
 Restart nginx
 ```Bash

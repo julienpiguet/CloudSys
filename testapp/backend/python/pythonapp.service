@@ -1,0 +1,10 @@
+[Unit]
+Description=Gunicorn Daemon for FastAPI App
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/CloudSys/testapp/backend/python
+ExecStart=/var/www/CloudSys/testapp/backend/python/venv/bin/gunicorn -c gunicorn_conf.py app:app -b 127.0.0.1:3000
+
+[Install]
+WantedBy=multi-user.target
