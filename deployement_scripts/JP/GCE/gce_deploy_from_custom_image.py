@@ -16,6 +16,10 @@ project="sanguine-medley-363719"
 zone="europe-west6-a"
 location = 'EUROPE-WEST6'
 
+bucket_name = "cloudsys-bucket-2"
+frontend_name = "frontend-2"
+backend_name = "backend-2"
+
 
 
 def list_instances(project_id, zone):
@@ -139,7 +143,8 @@ def create_instance(
         # Set the delete protection bit
         instance.deletion_protection = True
     
-    instance.tags = compute_v1.Tags().items.append('http-server')
+    instance.tags = compute_v1.Tags()
+    instance.tags.items.append('http-server')
 
     # Prepare the request to insert an instance.
     request = compute_v1.InsertInstanceRequest()
@@ -176,9 +181,9 @@ def create_bucket(bucket_name, project,location):
     print(f"Bucket {bucket.name} created.")
     
     
-create_from_custom_image(project, zone, "frontend-2", "projects/"+project+"/global/images/cloudsys-frontend")
-create_from_custom_image(project, zone, "backend-1", "projects/"+project+"/global/images/cloudsys-backend")
+create_from_custom_image(project, zone, frontend_name, "projects/"+project+"/global/images/cloudsys-frontend")
+create_from_custom_image(project, zone, backend_name, "projects/"+project+"/global/images/cloudsys-backend")
     
 list_instances(project, zone)
     
-create_bucket("cloudsys_bucket", project,location)
+create_bucket(bucket_name, project,location)
