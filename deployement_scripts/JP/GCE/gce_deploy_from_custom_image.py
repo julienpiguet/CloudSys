@@ -26,8 +26,6 @@ def list_instances(project_id, zone):
     print(f"Instances found in zone {zone}:")
     for instance in instance_list:
         print(f" - {instance.name} ({instance.machine_type})")
-        
-
 
 def get_image_from_family(project: str, family: str) -> compute_v1.Image:
     image_client = compute_v1.ImagesClient()
@@ -41,8 +39,6 @@ def disk_from_image(disk_type: str,disk_size_gb: int,boot: bool,source_image: st
     initialize_params.disk_size_gb = disk_size_gb
     initialize_params.disk_type = disk_type
     boot_disk.initialize_params = initialize_params
-    # Remember to set auto_delete to True if you want the disk to be deleted when you delete
-    # your VM instance.
     boot_disk.auto_delete = auto_delete
     boot_disk.boot = boot
     return boot_disk
@@ -142,6 +138,8 @@ def create_instance(
     if delete_protection:
         # Set the delete protection bit
         instance.deletion_protection = True
+    
+    instance.tags.items.append('http-server')
 
     # Prepare the request to insert an instance.
     request = compute_v1.InsertInstanceRequest()
