@@ -139,7 +139,7 @@ def create_instance(
         # Set the delete protection bit
         instance.deletion_protection = True
     
-    instance.tags.items.append('http-server')
+    instance.tags = compute_v1.Tags().items.append('http-server')
 
     # Prepare the request to insert an instance.
     request = compute_v1.InsertInstanceRequest()
